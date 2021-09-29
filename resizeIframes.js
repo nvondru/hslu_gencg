@@ -8,6 +8,8 @@ function resizeIFrameToFitContent( iFrame ) {
 }
 
 
+
+
 window.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
@@ -15,7 +17,10 @@ window.addEventListener("DOMContentLoaded", () => {
         // or, to resize all iframes:
         var iframes = document.querySelectorAll("iframe");
         for( var i = 0; i < iframes.length; i++) {
-            resizeIFrameToFitContent( iframes[i] );
+            iframes[i].addEventListener("load", () => {
+                
+                resizeIFrameToFitContent( iframes[i] );
+            })
         }
     }, 0);
 });
