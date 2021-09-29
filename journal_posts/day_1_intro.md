@@ -2,5 +2,5 @@
 
 
 {% raw %}
-<iframe src="../web/index.html" width="100%" height="450" frameborder="no"></iframe>
+<iframe src="../web/index.html" width="100%" frameborder="no"></iframe>
 {% endraw %}
