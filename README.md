@@ -1,42 +1,5 @@
-# Day 01
+# About this project
 
-## Computing without computer
-
-### Sollewit: Wall drawing
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
-![Example Image](content/day01/test.jpg)
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-
-```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
-
-### Moniker
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-
-{% raw %}
-<iframe src="content/day01/01/embed.html" width="100%" height="450" frameborder="no"></iframe>
-{% endraw %}
+Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est ex, rem doloribus quia consequuntur accusamus unde ipsum modi nemo corrupti neque autem eius, laboriosam incidunt excepturi! Vero voluptatibus cum itaque maiores mollitia neque quis voluptate est labore sunt minima commodi quos architecto voluptates sapiente ab totam, iusto adipisci ipsum ut tempore ipsam provident repellat! Hic, odit illo tempore distinctio vel magnam qui iste cupiditate nam, nemo inventore quod aliquam commodi? Expedita dolor fuga facere temporibus perspiciatis cumque beatae aperiam. Laudantium cupiditate quis commodi reiciendis, magnam reprehenderit inventore perspiciatis nisi possimus corrupti cum saepe natus, atque quam, aut est assumenda? Possimus perferendis eaque delectus perspiciatis enim autem, sed temporibus? Corrupti corporis rem rerum quasi delectus dolor dolores minus consectetur ex ipsam maxime fuga maiores repudiandae repellendus, ea sit tempore qui et, magnam provident. Blanditiis omnis non asperiores nisi quos eaque tempore facere dicta voluptatum ullam aperiam aut, corrupti odio nulla laboriosam sunt exercitationem dolore recusandae deleniti architecto quod aliquam? Perspiciatis quod quidem molestiae autem aliquid sunt dolores? Quidem quae corrupti esse, sit excepturi officia, in voluptates temporibus quod hic perspiciatis dolor. Mollitia similique suscipit nisi officia minima ut distinctio quis nemo magni quia optio amet ad aliquid vitae voluptatem, aspernatur et!
 
 
-## Computing with computer
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-
-> At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-
-{% raw %}
-<iframe src="content/day01/02/embed.html" width="100%" height="450" frameborder="no"></iframe>
-{% endraw %}
-
-* Lorem ipsum dolor sit amet
-* Consetetur sadipscing elitr, sed diam nonumy.
-* At vero eos et accusam et justo duo dolores et ea rebum. 
