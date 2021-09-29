@@ -1,7 +1,8 @@
 function resizeIFrameToFitContent( iFrame ) {
 
-    iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
-    iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
+    let bodyIFrame = iFrame.contentWindow.document.getElementsByTagName("body")[0];
+    iFrame.width  = bodyIFrame.scrollWidth;
+    iFrame.height = bodyIFrame.scrollHeight;
 }
 
 
