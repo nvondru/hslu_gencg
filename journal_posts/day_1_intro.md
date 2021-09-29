@@ -6,3 +6,5 @@
 {% raw %}
 <iframe src="../web/index.html" width="100%" height="450" frameborder="no"></iframe>
 {% endraw %}
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea impedit ad dolore dolorem alias ipsum vitae error fuga eius repudiandae.
