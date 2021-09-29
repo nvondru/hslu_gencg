@@ -17,5 +17,5 @@ window.addEventListener("DOMContentLoaded", () => {
         for( var i = 0; i < iframes.length; i++) {
             resizeIFrameToFitContent( iframes[i] );
         }
-    }, 2000);
+    }, 0);
 });
