@@ -4,6 +4,13 @@ function resizeIFrameToFitContent(iFrame) {
   let htmlIFrame =
     iFrame.contentWindow.document.getElementsByTagName("html")[0];
   iFrame.width = bodyIFrame.scrollWidth;
+  iFrame.width = Math.max(
+    bodyIFrame.scrollWidth,
+    bodyIFrame.offsetWidth,
+    htmlIFrame.clientWidth,
+    htmlIFrame.scrollWidth,
+    htmlIFrame.offsetWidth
+  );
   iFrame.height = Math.max(
     bodyIFrame.scrollHeight,
     bodyIFrame.offsetHeight,
