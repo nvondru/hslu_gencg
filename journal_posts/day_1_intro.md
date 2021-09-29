@@ -5,8 +5,8 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"></link>
     <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'></link>
     <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'></link>
-    <link rel="stylesheet" href="../web/style.css">
-    <div id="wrapper"></link>
+    <link rel="stylesheet" href="../web/style.css"></link>
+    <div id="wrapper">
    
    	  <h1>Simple Image Slider</h1>
       <h2>A Pen by <a href="http://www.andrecortellini.com" target="_blank">André Cortellini</a></h2>
