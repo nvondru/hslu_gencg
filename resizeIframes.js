@@ -6,9 +6,13 @@ function resizeIFrameToFitContent( iFrame ) {
 
 
 window.addEventListener("DOMContentLoaded", () => {
-    // or, to resize all iframes:
-    var iframes = document.querySelectorAll("iframe");
-    for( var i = 0; i < iframes.length; i++) {
-        resizeIFrameToFitContent( iframes[i] );
-    }
+
+    setTimeout(() => {
+        
+        // or, to resize all iframes:
+        var iframes = document.querySelectorAll("iframe");
+        for( var i = 0; i < iframes.length; i++) {
+            resizeIFrameToFitContent( iframes[i] );
+        }
+    }, 2000);
 });
