@@ -17,9 +17,10 @@ window.addEventListener("DOMContentLoaded", () => {
         // or, to resize all iframes:
         var iframes = document.querySelectorAll("iframe");
         for( var i = 0; i < iframes.length; i++) {
-            iframes[i].addEventListener("load", () => {
+            let frame = iframes[i];
+            frame.addEventListener("load", () => {
                 
-                resizeIFrameToFitContent( iframes[i] );
+                resizeIFrameToFitContent( frame );
             })
         }
     }, 0);
