@@ -1,8 +1,6 @@
 let cols = 20;
 let rows;
 let tileWidth;
-let clearBackground = false;
-let globalAlpha = 20;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -13,12 +11,7 @@ function setup() {
 
 function draw() {
   randomSeed(0);  
-  if (clearBackground == true ) {
-    background(220);
-    globalAlpha = 255;
-  }else{
-    globalAlpha = 20;
-  }
+  // background(220);
   tileWidth = width / cols;
   rows = Math.floor(height / tileWidth);
   strokeWeight(10);
@@ -32,9 +25,7 @@ function draw() {
         let r = map(random(mouseX - 100, mouseX +  100), 0, width, 0, 255);
         let g = map(random(mouseY - 100, mouseY +  100), 0, height, 0, 255);
         let b = random(0, 255)
-        stroke(r, g, b, globalAlpha); 
-
-        Math.
+        stroke(r, g, b, 20); 
 
         // calculate angle between line position and mousePosition
         let angle = atan2(mouseY - y, mouseX - x);
@@ -54,9 +45,6 @@ function draw() {
   }
 }
 
-
-let angle = atan2(mouseY - y, mouseX - x);
-line(x, y, x + cos(angle) * lineWidth / 2, y + sin(angle) * lineWidth);
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight, false);
