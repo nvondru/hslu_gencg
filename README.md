@@ -1,5 +1,7 @@
 # About this project
 
-Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est ex, rem doloribus quia consequuntur accusamus unde ipsum modi nemo corrupti neque autem eius, laboriosam incidunt excepturi! Vero voluptatibus cum itaque maiores mollitia neque quis voluptate est labore sunt minima commodi quos architecto voluptates sapiente ab totam, iusto adipisci ipsum ut tempore ipsam provident repellat! Hic, odit illo tempore distinctio vel magnam qui iste cupiditate nam, nemo inventore quod aliquam commodi? Expedita dolor fuga facere temporibus perspiciatis cumque beatae aperiam. Laudantium cupiditate quis commodi reiciendis, magnam reprehenderit inventore perspiciatis nisi possimus corrupti cum saepe natus, atque quam, aut est assumenda? Possimus perferendis eaque delectus perspiciatis enim autem, sed temporibus? Corrupti corporis rem rerum quasi delectus dolor dolores minus consectetur ex ipsam maxime fuga maiores repudiandae repellendus, ea sit tempore qui et, magnam provident. Blanditiis omnis non asperiores nisi quos eaque tempore facere dicta voluptatum ullam aperiam aut, corrupti odio nulla laboriosam sunt exercitationem dolore recusandae deleniti architecto quod aliquam? Perspiciatis quod quidem molestiae autem aliquid sunt dolores? Quidem quae corrupti esse, sit excepturi officia, in voluptates temporibus quod hic perspiciatis dolor. Mollitia similique suscipit nisi officia minima ut distinctio quis nemo magni quia optio amet ad aliquid vitae voluptatem, aspernatur et!
+{% raw %}
+<iframe src="web/index.html" width="600" height="400" frameborder="no"></iframe>
+{% endraw %}
 
 

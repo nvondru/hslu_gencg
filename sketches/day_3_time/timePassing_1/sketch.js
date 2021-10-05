@@ -1,6 +1,15 @@
 let shapeCollections = [];
 let shapes = [];
 
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
+
+let stepWidth = 40;
+let clockRadius;
+
+let dayPassed = false;
+
 let ORIENTATIONS = {
   below: 0,
   above: 1,
@@ -8,9 +17,21 @@ let ORIENTATIONS = {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  if (windowHeight <= windowWidth) {
+    clockRadius = windowHeight / 2 - windowHeight / 10;
+  } else {
+    console.log("yes");
+    clockRadius = windowWidth / 2 - windowWidth / 10;
+  }
+  if (height <= width) {
+    stepWidth = height / 60;
+  } else {
+    stepWidth = width / 60;
+  }
+  colorMode(RGB);
   fill(52, 140, 235, 100);
   noStroke();
-  frameRate(1);
+  frameRate(1000);
   translate(width / 2, height / 2, 0);
   background("#5d7691");
   drawStartingShape();
@@ -19,8 +40,17 @@ function setup() {
 
 function draw() {
   translate(width / 2, height / 2, 0);
+  angleMode(DEGREES);
+  let angle = map(hours, 0, 11, 0, 360);
+  rotate(angle);
+  translate(0, -clockRadius);
 
-  let lastShape = shapes[shapes.length - 1];
+  let lastShape;
+  if (seconds == 0) {
+    lastShape = shapes[0];
+  } else {
+    lastShape = shapes[shapes.length - 1];
+  }
   let startingPoint = lastShape.points[lastShape.points.length - 1];
   let connectingPoint = lastShape.getConnectorFor(startingPoint);
   let line = {
@@ -35,22 +65,25 @@ function draw() {
   }
   let newShape = new Shape([startingPoint, connectingPoint, newPoint]);
 
-  for (let i = 0; i < shapes.length - 1; i++) {
-    const shape = shapes[i];
-    if (collidePointPoly(newShape.points[2], shape.points)) {
-      console.log(
-        "new point " +
-          newShape.points[2] +
-          " of new shape " +
-          newShape +
-          " collides with existing shape: " +
-          shape
-      );
-    }
-  }
-
   shapes.push(newShape);
   newShape.drawShape();
+  updateTime();
+}
+
+function updateTime() {
+  seconds += 1;
+  if (seconds >= 60) {
+    seconds = 0;
+    minutes += 1;
+    if (minutes >= 60) {
+      minutes = 0;
+      hours += 1;
+      if (hours >= 12) {
+        hours = 0;
+        dayPassed = true;
+      }
+    }
+  }
 }
 
 function getNonOverlappingPoint(line, orientation) {
@@ -63,15 +96,15 @@ function getNonOverlappingPoint(line, orientation) {
   if (orientation == ORIENTATIONS.above) {
     do {
       newPoint = new Point(
-        random(lineCenter.x - 100, lineCenter.x + 100),
-        random(lineCenter.y - 100, lineCenter.y + 100)
+        random(lineCenter.x - stepWidth, lineCenter.x + stepWidth),
+        random(lineCenter.y - stepWidth, lineCenter.y + stepWidth)
       );
     } while (!newPoint.isAboveLine(line));
   } else {
     do {
       newPoint = new Point(
-        random(lineCenter.x - 100, lineCenter.x + 100),
-        random(lineCenter.y - 100, lineCenter.y + 100)
+        random(lineCenter.x - stepWidth, lineCenter.x + stepWidth),
+        random(lineCenter.y - stepWidth, lineCenter.y + stepWidth)
       );
     } while (newPoint.isAboveLine(line));
   }
@@ -90,15 +123,7 @@ function drawStartingShape() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight, false);
-}
-
-function mouseClicked() {
   background("#5d7691");
-  shapeCollections[shapeCollections.length] = shapes;
-  shapes = [];
-  drawStartingShape();
-  push();
-  pop();
 }
 
 class Point {
@@ -124,8 +149,12 @@ class Shape {
   }
 
   drawShape() {
-    fill(map(shapes.length, 0, 60, 0, 255));
-    stroke(map(shapes.length, 0, 60, 255, 0));
+    colorMode(HSB);
+    let h = map(hours, 0, 11, 0, 360);
+    let s = map(seconds, 0, 59, 0, 100);
+    let b = map(minutes, 0, 59, 0, 100);
+    let a = map(seconds, 0, 59, 0, 1);
+    fill(h, s, b, a);
 
     beginShape();
     for (let i = 0; i < this.points.length; i++) {
@@ -148,6 +177,5 @@ class Shape {
         return this.points[this.points.indexOf(point) + 1];
       }
     }
-    // return this.points[1];
   }
 }

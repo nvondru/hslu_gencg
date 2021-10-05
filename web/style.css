@@ -7,7 +7,7 @@ body, html{background: transparent; font-family: 'Anton', sans-serif; overflow: 
 
 #wrapper{
 	width:600px;
-	margin:50px auto;
+	margin:0px auto;
 	height:400px;
 	position:relative;
 	color:#fff;
@@ -72,7 +72,7 @@ body, html{background: transparent; font-family: 'Anton', sans-serif; overflow: 
 	line-height:57px;
 	text-align:center;
 	cursor:pointer;	
-	background:rgba(0,0,0,0.1);
+	background:rgba(0,0,0,0.3);
 	z-index:100;
 	
 	
@@ -89,7 +89,7 @@ body, html{background: transparent; font-family: 'Anton', sans-serif; overflow: 
 }
 
 .btns:hover{
-	background:rgba(0,0,0,0.3);	
+	background:rgba(0,0,0,0.7);	
 }
 
 #next{right:-50px; border-radius:7px 0px 0px 7px;}
@@ -126,7 +126,8 @@ body, html{background: transparent; font-family: 'Anton', sans-serif; overflow: 
 	width:5px;
 	height:5px;
 	border-radius:50%;
-	background:#fff;
+	background:#000;
+	border: 2px solid #000;
 	opacity:0.5;
 	position:relative;
   top:0;
