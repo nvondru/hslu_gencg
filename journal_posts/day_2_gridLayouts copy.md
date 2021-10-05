@@ -1,10 +1,10 @@
-# Day 1 - Introduction & physical games
+# Day 2 - Grid Layouts
 {% raw %}
 <script src="../resizeIframes.js"></script>
 {% endraw %}
 
 {% raw %}
-<iframe src="../web/slider_day_01.html" width="100%" height="400" frameborder="no"></iframe>
+<iframe src="../web/slider_day_02.html" width="100%" height="400" frameborder="no"></iframe>
 {% endraw %}
 
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea impedit ad dolore dolorem alias ipsum vitae error fuga eius repudiandae.
