@@ -1,4 +1,4 @@
-# Day 2 - Grid Layouts
+# Day 3 - Abstract Time Visualization
 {% raw %}
 <script src="../resizeIframes.js"></script>
 {% endraw %}
