@@ -34,7 +34,7 @@ function draw() {
         let b = random(0, 255)
         stroke(r, g, b, globalAlpha); 
 
-        Math.
+        
 
         // calculate angle between line position and mousePosition
         let angle = atan2(mouseY - y, mouseX - x);
@@ -55,8 +55,7 @@ function draw() {
 }
 
 
-let angle = atan2(mouseY - y, mouseX - x);
-line(x, y, x + cos(angle) * lineWidth / 2, y + sin(angle) * lineWidth);
+
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight, false);
