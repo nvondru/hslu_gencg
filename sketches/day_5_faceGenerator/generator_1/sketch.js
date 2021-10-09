@@ -36,6 +36,14 @@ let outline = [
   21, 20, 19, 18, 17,
 ];
 
+let eyeLeft = [36, 37, 38, 39, 40, 41];
+let eyeRight = [42, 43, 44, 45, 45, 47];
+
+let nose = [27, 28, 29, 30, 31, 32, 33, 34, 35];
+
+let mouthOuter = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59];
+let mouthInner = [60, 61, 62, 63, 64, 65, 66, 67];
+
 // Load the MediaPipe facemesh model assets.
 facemesh.load().then(function (_model) {
   console.log("model initialized.");
@@ -57,6 +65,7 @@ function setup() {
 }
 
 function draw() {
+  randomSeed(0);
   //otherwise super gnarly
   strokeJoin(ROUND);
   background(80);
@@ -104,15 +113,11 @@ function drawFace(faceVertices, filled) {
   if (faceVertices != undefined) {
     const mesh = faceVertices.scaledMesh;
     connectVertices(mesh, outline);
-    // for (let j = 0; j < mesh.length; j++) {
-    //   const [x, y, z] = mesh[j];
-    //   circle(x, y, 5);
-    //   push();
-    //   strokeWeight(1);
-    //   textSize(8);
-    //   // text(j, x, y);
-    //   pop();
-    // }
+    connectVertices(mesh, nose);
+    connectVertices(mesh, eyeLeft);
+    connectVertices(mesh, eyeRight);
+    connectVertices(mesh, mouthOuter);
+    connectVertices(mesh, mouthInner);
   }
 }
 
@@ -126,7 +131,7 @@ function connectVertices(vertices, connectionIndices) {
   );
   for (let i = 0; i < connectionIndices.length; i++) {
     const vertexPoint = vertices[connectionIndices[i]];
-    curveVertex(vertexPoint[0], vertexPoint[1]);
+    curveVertex(vertexPoint[0] + random(-5, 5), vertexPoint[1] + random(-5, 5));
   }
   curveVertex(
     vertices[connectionIndices[0]][0],

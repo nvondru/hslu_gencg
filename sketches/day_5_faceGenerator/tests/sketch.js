@@ -1,27 +1,31 @@
-let slider;
-let cheekOffset = 50;
+let xoff = 0;
+
+let points = [];
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  slider = createSlider(0, 255, 50);
-  slider.position(10, 10);
-  slider.style("width", "80px");
+  createCanvas(800, 400);
+  noFill();
+  strokeWeight(1);
+  stroke(255, 255, 255, 255);
 }
 
 function draw() {
-  translate(width / 2, height / 2);
-  cheekOffset = slider.value();
-  background(220);
-  noFill();
-  beginShape();
-  curveVertex(0, -100);
-  curveVertex(0, -100);
-  curveVertex(-cheekOffset, 0);
-  curveVertex(0, 100);
-  curveVertex(cheekOffset, 0);
-  curveVertex(0, -100);
-  curveVertex(0, -100);
-  endShape();
+  background(40);
+  randomSeed(0);
+
+  // var y = map(noise(xoff), 0, 1, 0, height);
+  var x = map(noise(xoff), 0, 1, 0, width);
+  // points.push({ x: xoff * 100, y: y });
+  // beginShape();
+  // for (let i = 0; i < points.length; i++) {
+  //   const point = points[i];
+  //   vertex(point.x, point.y);
+  // }
+  // endShape();
+
+  // ellipse(x, height / 2, 10, 10);
+  ellipse(random(0, width), height / 2, 10, 10);
+  xoff += 0.01;
 }
 
 function windowResized() {
