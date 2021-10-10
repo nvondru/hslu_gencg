@@ -21,7 +21,7 @@ function draw() {
   if (initialized === true) {
     // background(220);
     randomSeed(0);
-    // displayCamInput();
+    displayCamInput();
 
     drawAtMaxRed();
   }

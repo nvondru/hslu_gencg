@@ -1,6 +1,6 @@
 let camInput;
 let pixelsToDraw = [];
-let rasterizeDivider = 2r;
+let rasterizeDivider = 2;
 let spaceDown = false;
 
 function setup() {

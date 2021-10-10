@@ -44,6 +44,8 @@ let nose = [27, 28, 29, 30, 31, 32, 33, 34, 35];
 let mouthOuter = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59];
 let mouthInner = [60, 61, 62, 63, 64, 65, 66, 67];
 
+let seed = 0;
+
 // Load the MediaPipe facemesh model assets.
 facemesh.load().then(function (_model) {
   console.log("model initialized.");
@@ -52,8 +54,9 @@ facemesh.load().then(function (_model) {
 });
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(600, 400);
   capture = createCapture(VIDEO);
+  capture.size(width, height);
 
   // this is to make sure the capture is loaded before asking facemesh to take a look otherwise facemesh will be very unhappy
   capture.elt.onloadeddata = function () {
@@ -65,7 +68,7 @@ function setup() {
 }
 
 function draw() {
-  randomSeed(0);
+  randomSeed(seed);
   //otherwise super gnarly
   strokeJoin(ROUND);
   background(80);
@@ -94,8 +97,8 @@ function draw() {
 
   // now draw all the other users' faces (& drawings) from the server
   push();
-  // translate(, y, [z])
-  scale(3);
+  translate(-width / 2, -height / 2);
+  scale(2);
   strokeWeight(2);
   noFill();
   stroke(255, 0, 0);
@@ -112,36 +115,122 @@ function draw() {
 function drawFace(faceVertices, filled) {
   if (faceVertices != undefined) {
     const mesh = faceVertices.scaledMesh;
-    connectVertices(mesh, outline);
-    connectVertices(mesh, nose);
-    connectVertices(mesh, eyeLeft);
-    connectVertices(mesh, eyeRight);
-    connectVertices(mesh, mouthOuter);
-    connectVertices(mesh, mouthInner);
+    connectOutlineVertices(mesh, outline);
+    connectNoseVertices(mesh, nose);
+    connectEyeVertices(mesh, eyeLeft);
+    connectEyeVertices(mesh, eyeRight);
+    connectOuterMouthVertices(mesh, mouthOuter);
+    connectInnerMouthVertices(mesh, mouthInner);
   }
 }
 
-function connectVertices(vertices, connectionIndices) {
+function connectInnerMouthVertices(vertices, connectionIndices) {
   stroke(255);
   strokeWeight(2);
   beginShape();
+
+  for (let i = 0; i < connectionIndices.length; i++) {
+    const vertexPoint = vertices[connectionIndices[i]];
+    curveVertex(vertexPoint[0], vertexPoint[1]);
+  }
+
+  endShape(CLOSE);
+}
+
+function connectOuterMouthVertices(vertices, connectionIndices) {
+  stroke(255);
+  strokeWeight(2);
+  let xOffset_1 = random(-20, 10);
+  let xOffset_2 = random(-10, 20);
+  beginShape();
+
+  for (let i = 0; i < connectionIndices.length; i++) {
+    const vertexPoint = vertices[connectionIndices[i]];
+    if (
+      connectionIndices[i] === 48 ||
+      connectionIndices[i] === 49 ||
+      connectionIndices[i] === 59
+    ) {
+      curveVertex(vertexPoint[0] + xOffset_1, vertexPoint[1]);
+    } else if (
+      connectionIndices[i] === 53 ||
+      connectionIndices[i] === 54 ||
+      connectionIndices[i] === 55
+    ) {
+      curveVertex(vertexPoint[0] + xOffset_2, vertexPoint[1]);
+    } else {
+      curveVertex(vertexPoint[0], vertexPoint[1]);
+    }
+  }
+
+  endShape(CLOSE);
+}
+
+function connectNoseVertices(vertices, connectionIndices) {
+  stroke(255);
+  strokeWeight(2);
+  beginShape();
+
   curveVertex(
     vertices[connectionIndices[0]][0],
     vertices[connectionIndices[0]][1]
+  );
+  curveVertex(
+    vertices[connectionIndices[4]][0],
+    vertices[connectionIndices[4]][1]
+  );
+  curveVertex(
+    vertices[connectionIndices[6]][0],
+    vertices[connectionIndices[6]][1]
+  );
+  curveVertex(
+    vertices[connectionIndices[8]][0],
+    vertices[connectionIndices[8]][1]
+  );
+
+  endShape(CLOSE);
+}
+
+function connectOutlineVertices(vertices, connectionIndices) {
+  stroke(255);
+  strokeWeight(2);
+  beginShape();
+  let yOffset = random(-10, 40);
+
+  for (let i = 0; i < connectionIndices.length; i++) {
+    const vertexPoint = vertices[connectionIndices[i]];
+    if (connectionIndices[i] >= 6 && connectionIndices[i] <= 10) {
+      curveVertex(vertexPoint[0], vertexPoint[1] + yOffset);
+    } else {
+      curveVertex(vertexPoint[0], vertexPoint[1]);
+    }
+  }
+
+  endShape(CLOSE);
+}
+
+function connectEyeVertices(vertices, connectionIndices) {
+  stroke(255);
+  strokeWeight(2);
+  beginShape();
+  let yOffset = random(-30, 30);
+  curveVertex(
+    vertices[connectionIndices[0]][0],
+    vertices[connectionIndices[0]][1] + yOffset
   );
   for (let i = 0; i < connectionIndices.length; i++) {
     const vertexPoint = vertices[connectionIndices[i]];
-    curveVertex(vertexPoint[0] + random(-5, 5), vertexPoint[1] + random(-5, 5));
+    curveVertex(vertexPoint[0], vertexPoint[1] + yOffset);
   }
   curveVertex(
     vertices[connectionIndices[0]][0],
-    vertices[connectionIndices[0]][1]
+    vertices[connectionIndices[0]][1] + yOffset
   );
   curveVertex(
     vertices[connectionIndices[0]][0],
-    vertices[connectionIndices[0]][1]
+    vertices[connectionIndices[0]][1] + yOffset
   );
-  endShape();
+  endShape(CLOSE);
 }
 
 // reduces the number of keypoints to the desired set
@@ -164,4 +253,8 @@ function packFace(face, set) {
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight, false);
   capture.size(windowWidth, windowHeight);
+}
+
+function mouseClicked() {
+  seed = millis();
 }
