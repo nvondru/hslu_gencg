@@ -1,7 +1,7 @@
 let camInput;
 let pixelsToDraw = [];
 let drawnPositions = [];
-let rasterizeDivider = 2;
+let rasterizeDivider = 4;
 let spaceDown = false;
 let initialized = false;
 function preload() {
