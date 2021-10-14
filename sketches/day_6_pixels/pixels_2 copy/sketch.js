@@ -2,22 +2,20 @@ let imgToReplicate;
 let imgSource;
 let imgReplicated;
 
-let startTime;
+let sampledSize = 100;
 
-let sampledSize = 300;
-
-let replicationThreshold;
-let btnApplyThreshold;
+let replicationThreshold = 700;
 
 function preload() {
-  imgSource = loadImage("./images/dani.jpg");
-  imgToReplicate = loadImage("./images/manu.jpg");
+  imgSource = loadImage("./images/darline2.jpg");
+  imgToReplicate = loadImage("./images/darline3.jpg");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   pixelDensity(1);
   background(120);
+  frameRate(30);
 
   if (imgToReplicate.width >= imgToReplicate.height) {
     imgToReplicate.resize(sampledSize, 0);
@@ -25,22 +23,16 @@ function setup() {
     imgToReplicate.resize(0, sampledSize);
   }
   imgSource.resize(imgToReplicate.width, imgToReplicate.height);
-
-  replicationThreshold = createSlider(0, 1016, 200, 1);
-  replicationThreshold.position(10, 10);
-  btnApplyThreshold = createButton("Apply");
-  btnApplyThreshold.position(10, 40);
-  btnApplyThreshold.mousePressed(() => {
-    calculateReplicatedImage();
-  });
-
-  calculateReplicatedImage();
 }
 
-function draw() {}
+function draw() {
+  calculateReplicatedImage();
+  if (replicationThreshold > 0) {
+    replicationThreshold -= 1;
+  }
+}
 
 function calculateReplicatedImage() {
-  startTime = Date.now();
   imgReplicated = createImage(imgToReplicate.width, imgToReplicate.height);
   let sourceColors = analyzeImg(imgSource);
   imgToReplicate.loadPixels();
@@ -64,9 +56,11 @@ function calculateReplicatedImage() {
     }
   }
   imgReplicated.updatePixels();
-  console.log(
-    "Render time was: " + (Date.now() - startTime) / 1000 + " seconds..."
-  );
+  imgSource.loadPixels();
+  imgReplicated.loadPixels();
+  imgSource.pixels = imgReplicated.pixels;
+  imgSource.updatePixels();
+
   if (imgReplicated.width >= imgReplicated.height) {
     imgReplicated.resize(width, 0);
   } else {
@@ -90,7 +84,7 @@ function findClosestColor(r, g, b, a, sourceColors) {
       closestCumulativeDiff = diff;
       closestColor = c;
     }
-    if (closestCumulativeDiff <= replicationThreshold.value()) {
+    if (closestCumulativeDiff <= replicationThreshold) {
       return closestColor;
     }
   }
@@ -113,15 +107,10 @@ function analyzeImg(img) {
       colors.push(color(r, g, b, a));
     }
   }
-  console.log(
-    "Finished analyzing after " +
-      (Date.now() - startTime) / 1000 +
-      " seconds..."
-  );
+
   return colors;
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight, false);
-  calculateReplicatedImage();
 }
