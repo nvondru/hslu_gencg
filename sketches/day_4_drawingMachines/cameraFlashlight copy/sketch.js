@@ -42,17 +42,12 @@ function draw() {
       }
     }
   }
-  // if (spaceDown) {
-  pixelsToDraw.push({
-    x: xPos,
-    y: yPos,
-  });
-  // } else {
-  fill(255, 255, 255, 255);
-  stroke(0, 0, 0, 255);
-  strokeWeight(5);
-  ellipse(xPos, yPos, 20);
-  // }
+  if (spaceDown) {
+    pixelsToDraw.push({
+      x: xPos,
+      y: yPos,
+    });
+  }
   fill(0, 255, 0, 255);
   noStroke();
   for (let i = 0; i < pixelsToDraw.length; i++) {

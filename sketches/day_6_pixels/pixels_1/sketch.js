@@ -31,9 +31,7 @@ function draw() {
     let b = pixels[currentIndex + 2];
     let a = pixels[currentIndex + 3];
     let nextIndex =
-      currentIndex +
-      Math.floor(map(noise(xOff, yOff), 0, 1, 1, 8)) * 4 +
-      width * 3;
+      currentIndex + Math.floor(map(noise(xOff), 0, 1, 1, 12)) * 4;
 
     // let nextIndex =
     //   currentIndex + Math.floor(map(noise(xOff, yOff), 0, 1, 1, 8)) * 8;

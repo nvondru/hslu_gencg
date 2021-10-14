@@ -4,14 +4,14 @@ let imgReplicated;
 
 let startTime;
 
-let sampledSize = 300;
+let sampledSize = 100;
 
 let replicationThreshold;
 let btnApplyThreshold;
 
 function preload() {
-  imgSource = loadImage("./images/dani.jpg");
-  imgToReplicate = loadImage("./images/manu.jpg");
+  imgSource = loadImage("./images/landscape.jpg");
+  imgToReplicate = loadImage("./images/me.jpg");
 }
 
 function setup() {
