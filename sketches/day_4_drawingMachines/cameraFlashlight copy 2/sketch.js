@@ -72,17 +72,22 @@ function drawAtMaxRed() {
       }
     }
   }
+  // if (spaceDown) {
   drawnPositions.push({
     x: xPos_target,
     y: yPos_target,
   });
+  // }
 
   // for (let i = 0; i < pixelsToDraw.length; i++) {
   // const pixel = pixelsToDraw[i];
 
+  // draw 10 circles increasing in size by index
   for (let i = 0; i < 10; i++) {
     noFill();
+    // decrease the strokeWeight according to the index
     strokeWeight(map(i, 0, 9, 15, 2));
+    // map colors and alpha to position and index parameters
     let r = map(random(xPos_target - 100, xPos_target + 100), 0, width, 0, 255);
     let g = map(
       random(yPos_target - 100, yPos_target + 100),
@@ -93,30 +98,30 @@ function drawAtMaxRed() {
     );
     let b = random(0, 255);
     let alpha = map(i, 0, 9, 100, 10);
-
     stroke(r, g, b, alpha);
+
     let elipseWidth = map(i, 0, 9, 10, 400);
+    // if (spaceDown) {
     ellipse(
       xPos_target,
       yPos_target,
+      // create a 3D rotating effect by calculating width and height with sine / cosine
       elipseWidth * sin(millis() / 1000),
       elipseWidth * cos(millis() / 1000)
     );
+    // }
   }
 
   let randomDrawnPosition = Math.floor(random(0, drawnPositions.length));
 
   stroke(0, 0, 0, 255);
-
+  // if (spaceDown) {
   line(
     drawnPositions[randomDrawnPosition].x,
     drawnPositions[randomDrawnPosition].y,
     xPos_target,
     yPos_target
   );
-
-  // fill(255, 255, 255, 255);
-  // ellipse(xPos_target, yPos_target, 20);
   // }
 }
 
@@ -127,7 +132,8 @@ function keyPressed() {
     spaceDown = true;
     // R
   } else if (keyCode === 82) {
-    pixelsToDraw = [];
+    drawnPositions = [];
+    background(100);
   }
 }
 
@@ -138,6 +144,7 @@ function keyReleased() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight, false);
-  camInput.size(windowWidth, windowHeight);
+  resizeCanvas(innerWidth, innerHeight, false);
+  drawnPositions = [];
+  background(100);
 }

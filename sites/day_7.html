@@ -1,32 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GENCG - Working Journal</title>
-    <link rel="stylesheet" href="../style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script>
+  </head>
+  <body>
     <section id="navBar" class="hidden">
-        <section id="links">
-            <a href="../index.html">GENCG Introduction</a>
-            <a href="day_1.html">Day 1 - Physical Games</a>
-            <a href="day_2.html">Day 2 - Grid Patterns</a>
-            <a href="day_3.html">Day 3 - Time Visualization</a>
-            <a href="day_4.html">Day 4 - Drawing Machine</a>
-            <a href="day_5.html">Day 5 - Face Generator</a>
-            <a href="day_6.html">Day 6 - Pixel Manipulations</a>
-            <a href="day_7.html">Day 7 & 8 - Extended Projects</a>
-        </section>
-        <div id="flap"><div id="flapArrow">></div></div>
+      <section id="links">
+        <a href="../index.html">GENCG Introduction</a>
+        <hr />
+
+        <a href="day_1.html">Day 1 - Physical Games</a>
+        <hr />
+
+        <a href="day_2.html">Day 2 - Grid Patterns</a>
+        <hr />
+
+        <a href="day_3.html">Day 3 - Time Visualization</a>
+        <hr />
+
+        <a href="day_4.html">Day 4 - Drawing Machine</a>
+        <hr />
+
+        <a href="day_5.html">Day 5 - Face Generator</a>
+        <hr />
+
+        <a href="day_6.html">Day 6 - Pixel Manipulations</a>
+        <hr />
+
+        <a href="day_7.html">Day 7 & 8 - Extended Projects</a>
+      </section>
+      <div id="flap"><div id="flapArrow">></div></div>
     </section>
     <section id="content">
-        <h1 id="title">GENCG Working Journal - Introduction</h1>
-        <hr>
+      <h1 id="title">GENCG Working Journal - Day 7 & 8 - Extended Projects</h1>
+      <hr />
+      <article>
+        Pixels right? I wanna do more with pixels! I overhauled my inital idea
+        of swapping pixels because the outcome didn't convince me at all.
+      </article>
+      <article>
+        So, I want to swap pixels again, but not without a purpose. The idea is,
+        that I prvovide the code with two images. My program will analyze the
+        images for all its pixels and then try to reconstruct one image with the
+        pixels from the other image. To make this more clear. All pixels in one
+        image will be rearanged, but not changed in their values. The slider in
+        the top left defines "how hard" the program tries to match the original
+        image. If the slider is all the way to the right, you will simply see
+        the source image, because it doesn't try at all to match the original
+        image at all. If the slider is all the way to the left it matches the
+        image as good as possible.
+      </article>
+      <div class="grid_2x1">
+        <div class="important">
+          Trying to replicate the image as close as possible might take a
+          considerable amount of time!
+          <article>
+            <strong>This calculations are heavy on your CPU.</strong>
+          </article>
+        </div>
+        <div class="important">
+          The images are downscaled in order to decrease the processing time.
+          <article>
+            <strong
+              >Use the second slider to increase/decrease the resolution</strong
+            >
+          </article>
+        </div>
+      </div>
+      <iframe
+        src="../sketches/day_6_pixels/pixels_2/index.html"
+        frameborder="0"
+        ,
+        style="width: 100%; height: 30vw"
+      ></iframe>
+      <a
+        href="../sketches/day_6_pixels/pixels_2/index.html"
+        class="sketchLink"
+        target="_blank"
+        >Show me!</a
+      >
+      <article>
+        Now comes the part i'm definetly most excited and proud of. In this
+        example the "matching factor" changes over time from
+        <strong> "not matching at all"</strong> to
+        <strong> "match as close as possible"</strong>. Keep in mind that pixels
+        are only changing positions but do NOT change it's color values!
+      </article>
 
+      <div class="important">Click the button to start :)</div>
+
+      <iframe
+        src="../sketches/day_6_pixels/pixels_2 copy/index.html"
+        frameborder="0"
+        ,
+        style="width: 100%; height: 30vw"
+      ></iframe>
+      <a
+        href="../sketches/day_6_pixels/pixels_2 copy/index.html"
+        class="sketchLink"
+        target="_blank"
+        >Show me!</a
+      >
     </section>
 
     <script src="../script.js"></script>
-</body>
+  </body>
 </html>

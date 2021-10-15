@@ -37,8 +37,6 @@ function setup() {
   calculateReplicatedImage();
 }
 
-function draw() {}
-
 function calculateReplicatedImage() {
   startTime = Date.now();
   imgReplicated = createImage(imgToReplicate.width, imgToReplicate.height);
@@ -123,5 +121,6 @@ function analyzeImg(img) {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight, false);
-  calculateReplicatedImage();
+  imgReplicated.resize(width, 0);
+  image(imgReplicated, 0, 0);
 }

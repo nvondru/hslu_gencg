@@ -1,32 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GENCG - Working Journal</title>
-    <link rel="stylesheet" href="../style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script>
+  </head>
+  <body>
     <section id="navBar" class="hidden">
-        <section id="links">
-            <a href="../index.html">GENCG Introduction</a>
-            <a href="day_1.html">Day 1 - Physical Games</a>
-            <a href="day_2.html">Day 2 - Grid Patterns</a>
-            <a href="day_3.html">Day 3 - Time Visualization</a>
-            <a href="day_4.html">Day 4 - Drawing Machine</a>
-            <a href="day_5.html">Day 5 - Face Generator</a>
-            <a href="day_6.html">Day 6 - Pixel Manipulations</a>
-            <a href="day_7.html">Day 7 & 8 - Extended Projects</a>
-        </section>
-        <div id="flap"><div id="flapArrow">></div></div>
+      <section id="links">
+        <a href="../index.html">GENCG Introduction</a>
+        <hr />
+
+        <a href="day_1.html">Day 1 - Physical Games</a>
+        <hr />
+
+        <a href="day_2.html">Day 2 - Grid Patterns</a>
+        <hr />
+
+        <a href="day_3.html">Day 3 - Time Visualization</a>
+        <hr />
+
+        <a href="day_4.html">Day 4 - Drawing Machine</a>
+        <hr />
+
+        <a href="day_5.html">Day 5 - Face Generator</a>
+        <hr />
+
+        <a href="day_6.html">Day 6 - Pixel Manipulations</a>
+        <hr />
+
+        <a href="day_7.html">Day 7 & 8 - Extended Projects</a>
+      </section>
+      <div id="flap"><div id="flapArrow">></div></div>
     </section>
     <section id="content">
-        <h1 id="title">GENCG Working Journal - Introduction</h1>
-        <hr>
+      <h1 id="title">GENCG Working Journal - Day 5 - Face Generator</h1>
+      <hr />
+      <article>
+        Now things start to get really interesting! We're supposed to generate
+        and draw faces. From what i've learned about camera input yesterday, I
+        knew i wanted to to something with the camera again. So I started
+        brainstorming and developing ideas.
+      </article>
+      <div class="grid_2x1">
+        <img src="images/face_1.jpg" alt="" />
+        <img src="images/face_2.jpg" alt="" />
+      </div>
+      <div class="grid_2x1">
+        <div>
+          <article>
+            I used a library called <strong>Mediapipe</strong> which provides a
+            model trained by AI, which is able to detect and track a face from
+            camera input. Using this library its quite easy to look up positions
+            from different parts of the face.
+          </article>
+          <article>
+            Check out <a href="https://mediapipe.dev/">Mediapipe</a> and
+            <a href="https://editor.p5js.org/lingdong/sketches/">Lingdong</a>
+            the author of the sketch which was used as a template for my
+            project.
+          </article>
+        </div>
+        <pre class="prettyprint">
+          // indices to access points from different parts of the face
+          let outline = [
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 26, 25, 24, 23, 22,
+            21, 20, 19, 18, 17,
+          ];
 
+          let eyeLeft = [36, 37, 38, 39, 40, 41];
+          let eyeRight = [42, 43, 44, 45, 45, 47];
+
+          let nose = [27, 28, 29, 30, 31, 32, 33, 34, 35];
+
+          let mouthOuter = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59];
+          let mouthInner = [60, 61, 62, 63, 64, 65, 66, 67];
+
+          // ...
+
+
+          // this for-loop connects all points from one part of the face
+          // the vertices array contains data points provided by the Mediapipe library
+          // connectionIndices represents an array of concrete indices as defined above
+
+          for (let i = 0; i < connectionIndices.length; i++) {
+            const vertexPoint = vertices[connectionIndices[i]];
+            curveVertex(vertexPoint[0], vertexPoint[1]);
+          }
+        </pre>
+      </div>
+      <div class="important">
+        Because of some scaling issues with iframes and the used tracking
+        library the drawn face might not be visible because it's drawn outside
+        the iframe! Try moving your head to the top right in that case.
+        <article>
+          <strong
+            >The camera is flipped, on the camera you should be moving to the
+            top left, in reality you should be moving to the top right!</strong
+          >
+        </article>
+      </div>
+      <div class="important">
+        Also your PC might struggle on this page because the calculation through
+        mediapipe are quite heavy on your CPU. All sketches are embedded via
+        IFrame and are all loaded and processed simultaneously.
+        <article>
+          <strong
+            >If you encounter too much lag, consider using the provided links to
+            the individual sketches!</strong
+          >
+        </article>
+      </div>
+      <iframe
+        src="../sketches/day_5_faceGenerator/generator_1/index.html"
+        frameborder="0"
+        ,
+        style="width: 100%; height: 30vw"
+      ></iframe>
+      <a
+        href="../sketches/day_5_faceGenerator/generator_1/index.html"
+        class="sketchLink"
+        target="_blank"
+        >Show me!</a
+      >
+      <article>
+        From this first working example I moved on and introduced some
+        parameters to randomly change the attributes of the face, such as the
+        nose, the eyes, the mouth and the outline. Also I added a "filter" that
+        adds a sketchy look to the drawn lines. I accomplished that by reading
+        the pixel data after connecting and drawing the face and calculating a
+        grayscale value based on perlin noise.
+      </article>
+      <div class="grid_2x1">
+        <iframe
+          src="../sketches/day_5_faceGenerator/generator_1 copy/index.html"
+          frameborder="0"
+          ,
+          style="width: 100%; height: 50vh"
+        ></iframe>
+        <pre class="prettyprint">
+        // input value for the noise function
+        let xOff = 0;
+    
+        // looping over all pixels on the canvas
+        for (let x = 0; x < width; x++) {
+          for (let y = 0; y < height; y++) {
+            const i = (x + y * width) * 4;
+            let r = pixels[i + 0];
+            let g = pixels[i + 1];
+            let b = pixels[i + 2];
+            let a = pixels[i + 3];
+            let bright = brightness(color(r, g, b));
+            // only add the "sketch filter look" to bright pixels -> not the background
+            // because of antialiasing, choosing only pixels with brightness of 100 will cause some jittery look at the edges of a stroke
+            if (bright >= 40) {
+              // by using noise I achieve the sketchy look
+              let v = map(noise(xOff), 0, 1, 0, 255);
+              pixels[i + 0] = v;
+              pixels[i + 1] = v;
+              pixels[i + 2] = v;
+            }
+            xOff += 0.01;
+          }
+        }
+        updatePixels();
+      </pre
+        >
+      </div>
+      <a
+        href="../sketches/day_5_faceGenerator/generator_1 copy/index.html"
+        class="sketchLink"
+        target="_blank"
+        >Show me!</a
+      >
+      <article>
+        Now, that's good and all but I wanted more! The pixel manipulation
+        seemed very promising to me, so I went ahead and tried to do mroe with
+        it. I ended up with the idea to distort the pixel positions by a noise
+        value instead of it's color value. Also I wanted to render this in
+        realtime, because I really like the interactive aspect.
+      </article>
+      <iframe
+        src="../sketches/day_5_faceGenerator/generator_1 copy 2/index.html"
+        frameborder="0"
+        ,
+        style="width: 100%; height: 30vw"
+      ></iframe>
+      <a
+        href="../sketches/day_5_faceGenerator/generator_1 copy 2/index.html"
+        class="sketchLink"
+        target="_blank"
+        >Show me!</a
+      >
+
+      <div class="grid_3x1">
+        <img src="images/face_3.jpg" alt="" />
+        <img src="images/face_4.jpg" alt="" />
+        <img src="images/face_5.jpg" alt="" />
+      </div>
     </section>
 
     <script src="../script.js"></script>
-</body>
+  </body>
 </html>

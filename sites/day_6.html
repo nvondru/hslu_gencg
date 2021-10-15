@@ -1,32 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GENCG - Working Journal</title>
-    <link rel="stylesheet" href="../style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script>
+  </head>
+  <body>
     <section id="navBar" class="hidden">
-        <section id="links">
-            <a href="../index.html">GENCG Introduction</a>
-            <a href="day_1.html">Day 1 - Physical Games</a>
-            <a href="day_2.html">Day 2 - Grid Patterns</a>
-            <a href="day_3.html">Day 3 - Time Visualization</a>
-            <a href="day_4.html">Day 4 - Drawing Machine</a>
-            <a href="day_5.html">Day 5 - Face Generator</a>
-            <a href="day_6.html">Day 6 - Pixel Manipulations</a>
-            <a href="day_7.html">Day 7 & 8 - Extended Projects</a>
-        </section>
-        <div id="flap"><div id="flapArrow">></div></div>
+      <section id="links">
+        <a href="../index.html">GENCG Introduction</a>
+        <hr />
+
+        <a href="day_1.html">Day 1 - Physical Games</a>
+        <hr />
+
+        <a href="day_2.html">Day 2 - Grid Patterns</a>
+        <hr />
+
+        <a href="day_3.html">Day 3 - Time Visualization</a>
+        <hr />
+
+        <a href="day_4.html">Day 4 - Drawing Machine</a>
+        <hr />
+
+        <a href="day_5.html">Day 5 - Face Generator</a>
+        <hr />
+
+        <a href="day_6.html">Day 6 - Pixel Manipulations</a>
+        <hr />
+
+        <a href="day_7.html">Day 7 & 8 - Extended Projects</a>
+      </section>
+      <div id="flap"><div id="flapArrow">></div></div>
     </section>
     <section id="content">
-        <h1 id="title">GENCG Working Journal - Introduction</h1>
-        <hr>
+      <h1 id="title">GENCG Working Journal - Day 6 - Pixel Manipulations</h1>
+      <hr />
+      <article>
+        Working with pixels is a lot of fun! I used a bit of my time today
+        working on the project from yesterday about Face Generation. So my work
+        from today is not quite impressive.
+      </article>
+      <article>
+        My idea was to have pixels in an image swap positions with eachother. A
+        pixel swaps position with another pixel within a certain range. The
+        position of the next pixel is determined by perlin noise.
+      </article>
+      <iframe
+        src="../sketches/day_6_pixels/pixels_1/index.html"
+        frameborder="0"
+        ,
+        style="width: 100%; height: 30vw"
+      ></iframe>
+      <a
+        href="../sketches/day_6_pixels/pixels_1/index.html"
+        class="sketchLink"
+        target="_blank"
+        >Show me!</a
+      >
 
+      <div class="grid_2x1">
+        <pre class="prettyprint">
+        
+        // each frame the process starts with the very first pixel in the image
+        let currentIndex = 0;
+        do {
+          // these variables serve as a temporary storage for caching RGBA values during the swap process
+          let currentR = 0;
+          let currentG = 0;
+          let currentB = 0;
+          let currentA = 0;
+
+          let r = pixels[currentIndex];
+          let g = pixels[currentIndex + 1];
+          let b = pixels[currentIndex + 2];
+          let a = pixels[currentIndex + 3];
+          // the index of the pixel to swap colors with is determined by perlin noise and mapped to some range
+          // the bigger this range (in this case 1 - 12) the less recoginzeable the resulting image will be
+          let nextIndex =
+            currentIndex + Math.floor(map(noise(xOff), 0, 1, 1, 12)) * 4;
+
+          //RGBA values of the next pixel are saved
+          currentR = pixels[nextIndex + 0];
+          currentG = pixels[nextIndex + 1];
+          currentB = pixels[nextIndex + 2];
+          currentA = pixels[nextIndex + 3];
+
+          // next pixel receives color values from the original pixel
+          pixels[nextIndex + 0] = r;
+          pixels[nextIndex + 1] = g;
+          pixels[nextIndex + 2] = b;
+          pixels[nextIndex + 3] = a;
+
+          // original pixel receives color values from the pixel he swapped with
+          pixels[currentIndex + 0] = currentR;
+          pixels[currentIndex + 1] = currentG;
+          pixels[currentIndex + 2] = currentB;
+          pixels[currentIndex + 3] = currentA;
+
+          // the next pixel will be the original pixel for the next loop
+          currentIndex = nextIndex;
+
+          xOff += 0.01;
+          yOff += 0.01;
+
+          // loops until the whole image is processed once
+        } while (currentIndex <= width * height * 4);
+        updatePixels();
+        </pre>
+
+        <article>
+          That's it for todays work. I really didn't have the energy to do more.
+          Here is the same code run on other images. But stay tuned for the last
+          two days :). I plan to do some really cool stuff with pixels!
+        </article>
+      </div>
+      <div class="grid_3x1">
+        <iframe
+          src="../sketches/day_6_pixels/pixels_1 copy/index.html"
+          frameborder="0"
+          ,
+          style="width: 100%; height: 30vw"
+        ></iframe>
+        <iframe
+          src="../sketches/day_6_pixels/pixels_1 copy 2/index.html"
+          frameborder="0"
+          ,
+          style="width: 100%; height: 30vw"
+        ></iframe>
+        <iframe
+          src="../sketches/day_6_pixels/pixels_1 copy 3/index.html"
+          frameborder="0"
+          ,
+          style="width: 100%; height: 30vw"
+        ></iframe>
+      </div>
+      <div class="grid_3x1">
+        <a
+          href="../sketches/day_6_pixels/pixels_1 copy/index.html"
+          class="sketchLink"
+          target="_blank"
+          >Show me!</a
+        >
+        <a
+          href="../sketches/day_6_pixels/pixels_1 copy 2/index.html"
+          class="sketchLink"
+          target="_blank"
+          >Show me!</a
+        >
+        <a
+          href="../sketches/day_6_pixels/pixels_1 copy 3/index.html"
+          class="sketchLink"
+          target="_blank"
+          >Show me!</a
+        >
+      </div>
     </section>
 
     <script src="../script.js"></script>
-</body>
+  </body>
 </html>

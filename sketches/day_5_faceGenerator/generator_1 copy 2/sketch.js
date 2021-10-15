@@ -49,8 +49,6 @@ let noseMultiplier;
 let outlineMultiplier;
 let sketchifyMultiplier;
 
-let drawLines;
-
 let c;
 
 // Load the MediaPipe facemesh model assets.
@@ -61,9 +59,8 @@ facemesh.load().then(function (_model) {
 });
 
 function setup() {
-  c = createCanvas(600, 400);
+  c = createCanvas(windowWidth, windowHeight);
   capture = createCapture(VIDEO);
-  capture.size(width, height);
   frameRate(100);
   pixelDensity(1);
 
@@ -101,9 +98,6 @@ function setup() {
     saveCanvas(c, "myFace_" + new Date().toLocaleDateString(), "jpg");
   });
 
-  drawLines = createCheckbox("Draw Lines", true);
-  drawLines.position(20, 230);
-
   capture.hide();
 }
 
@@ -138,7 +132,6 @@ function draw() {
 
   // now draw all the other users' faces (& drawings) from the server
   push();
-  translate(-width / 2, -height / 2);
   scale(2);
   strokeWeight(2);
   noFill();
@@ -165,51 +158,35 @@ function draw() {
 
       let bright = brightness(color(r, g, b));
       if (bright >= 40) {
+        pixels[i + 0] = 80;
+        pixels[i + 1] = 80;
+        pixels[i + 2] = 80;
+        pixels[i + 3] = 255;
+        let noiseValue = Math.floor(
+          map(noise(xOff, yOff), 0, 1, -sketchifyValue, sketchifyValue)
+        );
+        let cValue = Math.floor(map(noise(xOff, yOff), 0, 1, 0, 256));
         drawLater.push({
           x,
           y,
-          noiseValue: map(
-            noise(xOff, yOff),
-            0,
-            1,
-            -sketchifyValue,
-            sketchifyValue
-          ),
+          noiseValue,
+          cValue,
         });
       }
       yOff += 0.01;
     }
     xOff += 0.01;
   }
-
   background(80);
 
-  if (drawLines.checked() == true) {
-    drawLater.forEach((pixel) => {
-      strokeWeight(1);
-      colorMode(HSB);
-      let distance = dist(
-        width / 2,
-        height / 2,
-        pixel.x + pixel.noiseValue,
-        pixel.y + pixel.noiseValue
-      );
-      let maxDistance = Math.abs(dist(0, 0, width / 2, height / 2));
-      let h = map(distance, 0, maxDistance, 0, 360);
-      stroke(h, 100, 100, 0.05);
-      line(
-        width / 2,
-        height / 2,
-        pixel.x + pixel.noiseValue,
-        pixel.y + pixel.noiseValue
-      );
-    });
-  }
   drawLater.forEach((pixel) => {
-    stroke(0, 0, 0, 255);
-
-    point(pixel.x + pixel.noiseValue, pixel.y + pixel.noiseValue);
+    set(
+      pixel.x + pixel.noiseValue,
+      pixel.y + pixel.noiseValue,
+      color(pixel.cValue, pixel.cValue, pixel.cValue, 255)
+    );
   });
+  updatePixels();
 
   colorMode(RGB);
 }
@@ -366,4 +343,8 @@ function packFace(face, set) {
     ];
   }
   return ret;
+}
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight, false);
+  // capture.size(windowWidth, windowHeight);
 }

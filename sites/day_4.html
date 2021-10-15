@@ -1,32 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GENCG - Working Journal</title>
-    <link rel="stylesheet" href="../style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script>
+  </head>
+  <body>
     <section id="navBar" class="hidden">
-        <section id="links">
-            <a href="../index.html">GENCG Introduction</a>
-            <a href="day_1.html">Day 1 - Physical Games</a>
-            <a href="day_2.html">Day 2 - Grid Patterns</a>
-            <a href="day_3.html">Day 3 - Time Visualization</a>
-            <a href="day_4.html">Day 4 - Drawing Machine</a>
-            <a href="day_5.html">Day 5 - Face Generator</a>
-            <a href="day_6.html">Day 6 - Pixel Manipulations</a>
-            <a href="day_7.html">Day 7 & 8 - Extended Projects</a>
-        </section>
-        <div id="flap"><div id="flapArrow">></div></div>
+      <section id="links">
+        <a href="../index.html">GENCG Introduction</a>
+        <hr />
+
+        <a href="day_1.html">Day 1 - Physical Games</a>
+        <hr />
+
+        <a href="day_2.html">Day 2 - Grid Patterns</a>
+        <hr />
+
+        <a href="day_3.html">Day 3 - Time Visualization</a>
+        <hr />
+
+        <a href="day_4.html">Day 4 - Drawing Machine</a>
+        <hr />
+
+        <a href="day_5.html">Day 5 - Face Generator</a>
+        <hr />
+
+        <a href="day_6.html">Day 6 - Pixel Manipulations</a>
+        <hr />
+
+        <a href="day_7.html">Day 7 & 8 - Extended Projects</a>
+      </section>
+      <div id="flap"><div id="flapArrow">></div></div>
     </section>
     <section id="content">
-        <h1 id="title">GENCG Working Journal - Introduction</h1>
-        <hr>
+      <h1 id="title">GENCG Working Journal - Day 4 - Drawing Machine</h1>
+      <hr />
 
+      <article>
+        What is a drawing machine? I asked myself that question several times.
+        Basically every sketch we do with p5 is a drawing machine. We give the
+        system some input, define a ruleset by writing conditional structures in
+        code and the program draws something for us.
+      </article>
+      <article>
+        What makes a drawing machine is the fact that the program manipulates
+        the input we give it in an unpredictable manner. We do have some way of
+        controlling the drawing machine, but since it is a machine, it distorts
+        the input we give and comes up with something we didn't plan upfront.
+      </article>
+      <article>
+        I decided that I want to create my own input system. I wanted to have
+        some camera input and have it so, that the viewer can draw something by
+        moving infront of the camera. My idea was, that the user could use his
+        smartphone flashlight to draw on the canvas.
+      </article>
+      <div class="important">
+        Also your PC might struggle on this page because the calculation are
+        quite heavy on your CPU. All sketches are embedded via IFrames and are
+        all loaded and processed simultaneously.
+        <article>
+          <strong
+            >If you encounter too much lag, consider using the provided links to
+            the individual sketches!</strong
+          >
+        </article>
+      </div>
+      <iframe
+        src="../sketches/day_4_drawingMachines/cameraFlashlight/index.html"
+        frameborder="0"
+        ,
+        style="width: 70%; height: 25vw"
+      ></iframe>
+      <a
+        href="../sketches/day_4_drawingMachines/cameraFlashlight/index.html"
+        class="sketchLink"
+        target="_blank"
+        >Show me!</a
+      >
+      <article>
+        In the code I search for the brightest pixel in the camera input and
+        draw a circle at that position.
+      </article>
+      <div class="grid_2x1">
+        <pre class="prettyprint">
+        // the rgba values of each pixel
+        let r = camInput.pixels[loc];
+        let g = camInput.pixels[loc + 1];
+        let b = camInput.pixels[loc + 2];
+        let a = camInput.pixels[loc + 3];
+        // a color object provided by the p5 library
+        let c = color(r, g, b, a);
+        // here i check the brightness of the pixel
+        let bright = brightness(c);
+        // i save a position reference to the brightest pixel
+        if (bright > brightestValue) {
+          brightestValue = bright;
+          brightestPixelIndex = loc;
+          xPos = map(x, 0, width / rasterizeDivider, width, 0);
+          yPos = map(y, 0, height / rasterizeDivider, 0, height);
+        }
+      </pre
+        >
+        <article>
+          The problem is, that depending on the lighting conditions there may be
+          other pixels just as bright (255, 255, 255 -> pure white) as the ones
+          coming from the flashlight. Also there is a reflection of the light in
+          the camera lens which is hard to control. The code will simply pick
+          the first completely white pixel and go with that. Not very good...
+        </article>
+      </div>
+      <article>
+        I decided to use another property than brightness, since this can be
+        quite hard to control. In this example the code will look for the pixel
+        with the highest red value.
+      </article>
+      <div class="important">
+        You can reset the drawing by clicking on the canvas and then pressing
+        <strong>R</strong> on your keyboard.
+      </div>
+      <div class="grid_2x1">
+        <div>
+          <pre class="prettyprint">
+          // RGB values of the pixel
+          let r = camInput.pixels[loc];
+          let g = camInput.pixels[loc + 1];
+          let b = camInput.pixels[loc + 2];
+    
+          // instead of checking for brightness, I check for the purest red since white also has a red value of 255
+          if (r > rMax && g < gMin && b < bMin) {
+            rMax = r;
+            gMin = g;
+            bMin = b;
+            xPos = map(x, 0, width / rasterizeDivider, width, 0);
+            yPos = map(y, 0, height / rasterizeDivider, 0, height);
+          }
+      </pre
+          >
+          <a
+            href="../sketches/day_4_drawingMachines/cameraFlashlight copy/index.html"
+            class="sketchLink"
+            target="_blank"
+            >Show me!</a
+          >
+        </div>
+        <iframe
+          src="../sketches/day_4_drawingMachines/cameraFlashlight copy/index.html"
+          frameborder="0"
+          ,
+          style="width: 100%; height: 25vw"
+        ></iframe>
+      </div>
+      <article>
+        Obviously this aproach suffers from the same problems as the one before,
+        but it's a bit easier to control wheter or not red items are in the view
+        of the camera. Now it's time to come up with some creative ideas on how
+        to draw something better than just green dots. To be honest, what I came
+        up with is not really useful, nor is it aesthetically pleasing. If I
+        find the time, i'll come back to this and try to do something more
+        satisfying. Also here you can reset the drawing by giving focus to the
+        canvas by clicking on it and then pressing <strong>R</strong>.
+      </article>
+      <iframe
+        src="../sketches/day_4_drawingMachines/cameraFlashlight copy 2/index.html"
+        frameborder="0"
+        ,
+        style="width: 100%; height: 40vw"
+      ></iframe>
+      <a
+        href="../sketches/day_4_drawingMachines/cameraFlashlight copy 2/index.html"
+        class="sketchLink"
+        target="_blank"
+        >Show me!</a
+      >
+      <pre class="prettyprint">
+        
+        // draw 10 circles increasing in size by index
+        for (let i = 0; i < 10; i++) {
+          noFill();
+
+          // decrease the strokeWeight according to the index
+          strokeWeight(map(i, 0, 9, 15, 2));
+          // map colors and alpha to position and index parameters
+          let r = map(random(xPos_target - 100, xPos_target + 100), 0, width, 0, 255);
+          let g = map(random(yPos_target - 100, yPos_target + 100), 0, height, 0, 255);
+          let b = random(0, 255);
+          let alpha = map(i, 0, 9, 100, 10);
+          stroke(r, g, b, alpha);
+            
+          let elipseWidth = map(i, 0, 9, 10, 400);
+          ellipse(
+            xPos_target,
+            yPos_target,
+            // create a 3D rotating effect by calculating width and height with sine / cosine
+            elipseWidth * sin(millis() / 1000),
+            elipseWidth * cos(millis() / 1000)
+          );
+        }
+          </pre
+      >
+      <article>
+        Finally here some pictures I have drawn with my drawing machines.
+      </article>
+      <div class="grid_3x1">
+        <img src="images/drawing_1.png" alt="" />
+        <img src="images/overview_4.jpg" alt="" />
+        <img src="images/drawing_2.png" alt="" />
+      </div>
     </section>
 
     <script src="../script.js"></script>
-</body>
+  </body>
 </html>

@@ -42,12 +42,12 @@ function draw() {
       }
     }
   }
-  if (spaceDown) {
-    pixelsToDraw.push({
-      x: xPos,
-      y: yPos,
-    });
-  }
+  // if (spaceDown) {
+  pixelsToDraw.push({
+    x: xPos,
+    y: yPos,
+  });
+  // }
   fill(0, 255, 0, 255);
   noStroke();
   for (let i = 0; i < pixelsToDraw.length; i++) {

@@ -2,20 +2,24 @@ let imgToReplicate;
 let imgSource;
 let imgReplicated;
 
-let sampledSize = 100;
+let sampledSize = 80;
 
 let replicationThreshold = 700;
 
 function preload() {
-  imgSource = loadImage("./images/darline2.jpg");
-  imgToReplicate = loadImage("./images/darline3.jpg");
+  imgSource = loadImage("./images/landscape.jpg");
+  imgToReplicate = loadImage("./images/me.jpg");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   pixelDensity(1);
   background(120);
-  frameRate(30);
+  let btnStart = createButton("Start");
+  btnStart.elt.classList.add("btnStart");
+  btnStart.mousePressed(() => {
+    loop();
+  });
 
   if (imgToReplicate.width >= imgToReplicate.height) {
     imgToReplicate.resize(sampledSize, 0);
@@ -23,11 +27,12 @@ function setup() {
     imgToReplicate.resize(0, sampledSize);
   }
   imgSource.resize(imgToReplicate.width, imgToReplicate.height);
+  noLoop();
 }
 
 function draw() {
-  calculateReplicatedImage();
   if (replicationThreshold > 0) {
+    calculateReplicatedImage();
     replicationThreshold -= 1;
   }
 }
@@ -66,6 +71,7 @@ function calculateReplicatedImage() {
   } else {
     imgReplicated.resize(0, height);
   }
+  translate(width / 2 - imgReplicated.width / 2, 0);
   image(imgReplicated, 0, 0);
 }
 

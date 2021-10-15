@@ -54,9 +54,9 @@ facemesh.load().then(function (_model) {
 });
 
 function setup() {
-  createCanvas(600, 400);
+  createCanvas(windowWidth, windowHeight);
   capture = createCapture(VIDEO);
-  capture.size(width, height);
+  // capture.size(width, height);
 
   // this is to make sure the capture is loaded before asking facemesh to take a look otherwise facemesh will be very unhappy
   capture.elt.onloadeddata = function () {
@@ -95,9 +95,9 @@ function draw() {
     });
   }
 
+  image(capture, 0, 0, capture.width, capture.height);
   // now draw all the other users' faces (& drawings) from the server
   push();
-  translate(-width / 2, -height / 2);
   scale(2);
   strokeWeight(2);
   noFill();
@@ -140,8 +140,6 @@ function connectInnerMouthVertices(vertices, connectionIndices) {
 function connectOuterMouthVertices(vertices, connectionIndices) {
   stroke(255);
   strokeWeight(2);
-  let xOffset_1 = random(-20, 10);
-  let xOffset_2 = random(-10, 20);
   beginShape();
 
   for (let i = 0; i < connectionIndices.length; i++) {
@@ -151,13 +149,13 @@ function connectOuterMouthVertices(vertices, connectionIndices) {
       connectionIndices[i] === 49 ||
       connectionIndices[i] === 59
     ) {
-      curveVertex(vertexPoint[0] + xOffset_1, vertexPoint[1]);
+      curveVertex(vertexPoint[0], vertexPoint[1]);
     } else if (
       connectionIndices[i] === 53 ||
       connectionIndices[i] === 54 ||
       connectionIndices[i] === 55
     ) {
-      curveVertex(vertexPoint[0] + xOffset_2, vertexPoint[1]);
+      curveVertex(vertexPoint[0], vertexPoint[1]);
     } else {
       curveVertex(vertexPoint[0], vertexPoint[1]);
     }
@@ -213,22 +211,21 @@ function connectEyeVertices(vertices, connectionIndices) {
   stroke(255);
   strokeWeight(2);
   beginShape();
-  let yOffset = random(-30, 30);
   curveVertex(
     vertices[connectionIndices[0]][0],
-    vertices[connectionIndices[0]][1] + yOffset
+    vertices[connectionIndices[0]][1]
   );
   for (let i = 0; i < connectionIndices.length; i++) {
     const vertexPoint = vertices[connectionIndices[i]];
-    curveVertex(vertexPoint[0], vertexPoint[1] + yOffset);
+    curveVertex(vertexPoint[0], vertexPoint[1]);
   }
   curveVertex(
     vertices[connectionIndices[0]][0],
-    vertices[connectionIndices[0]][1] + yOffset
+    vertices[connectionIndices[0]][1]
   );
   curveVertex(
     vertices[connectionIndices[0]][0],
-    vertices[connectionIndices[0]][1] + yOffset
+    vertices[connectionIndices[0]][1]
   );
   endShape(CLOSE);
 }
@@ -252,7 +249,7 @@ function packFace(face, set) {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight, false);
-  capture.size(windowWidth, windowHeight);
+  // capture.size(windowWidth, windowHeight);
 }
 
 function mouseClicked() {

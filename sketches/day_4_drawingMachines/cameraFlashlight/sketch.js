@@ -43,14 +43,14 @@ function draw() {
       }
     }
   }
-  if (keyIsPressed === true) {
-    pixelsToDraw.push({
-      x: xPos,
-      y: yPos,
-    });
-  } else {
-    ellipse(xPos, yPos, 20);
-  }
+  // if (keyIsPressed === true) {
+  pixelsToDraw.push({
+    x: xPos,
+    y: yPos,
+  });
+  // } else {
+  // ellipse(xPos, yPos, 20);
+  // }
   for (let i = 0; i < pixelsToDraw.length; i++) {
     const pixel = pixelsToDraw[i];
     ellipse(pixel.x, pixel.y, 20);

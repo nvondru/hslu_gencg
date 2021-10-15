@@ -56,9 +56,8 @@ facemesh.load().then(function (_model) {
 });
 
 function setup() {
-  createCanvas(600, 400);
+  createCanvas(windowWidth, windowHeight);
   capture = createCapture(VIDEO);
-  capture.size(width, height);
   frameRate(100);
   pixelDensity(1);
 
@@ -87,8 +86,7 @@ function setup() {
     seed = millis();
     // now draw all the other users' faces (& drawings) from the server
     push();
-    translate(-width / 2, -height / 2);
-    scale(2);
+    scale(1.5);
     strokeWeight(2);
     noFill();
     stroke(255, 255, 255);
@@ -97,8 +95,10 @@ function setup() {
 
     loadPixels();
 
+    // input value for the noise function
     let xOff = 0;
 
+    // looping over all pixels on the canvas
     for (let x = 0; x < width; x++) {
       for (let y = 0; y < height; y++) {
         const i = (x + y * width) * 4;
@@ -107,7 +107,10 @@ function setup() {
         let b = pixels[i + 2];
         let a = pixels[i + 3];
         let bright = brightness(color(r, g, b));
+        // only add the "sketch filter look" to bright pixels -> not the background
+        // because of antialiasing, choosing only pixels with brightness of 100 will cause some jittery look at the edges of a stroke
         if (bright >= 40) {
+          // by using noise I achieve the sketchy look
           let v = map(noise(xOff), 0, 1, 0, 255);
           pixels[i + 0] = v;
           pixels[i + 1] = v;
@@ -161,8 +164,6 @@ function draw() {
     125
   );
 }
-
-function mouseClicked() {}
 
 // draw a face object returned by facemesh
 function drawFace(faceVertices, filled) {
