@@ -27,3 +27,7 @@ function draw() {
   updatePixels();
   zOff += 0.1;
 }
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight, false);
+}
