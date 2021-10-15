@@ -28,9 +28,88 @@
         Tick... Tick... Tick... Tick... Tick... Tick... Tick...
       </article>
       <article>
-        Time is passing... always! So it's no surprise that time has a spot in
-        our projects.
+        Time is passing... always! So it's no surprise that time and it's wast
+        range of possible visualizations have a spot in our project.
       </article>
+      <article>
+        Again I first looked around for inspiration and created some sketches on
+        paper.
+      </article>
+      <div class="grid_2x1">
+        <article>
+          Initially I had the idea, to do something in 3D. There would be
+          multiple vessels containing cubes. Each vessel stands for either
+          seconds, minutes, hours or days. Each cube would accordingly represent
+          one unit of that timespan. The cubes would fly from vessel to vessel,
+          by using some physics. But in the end I came to the conclusion that
+          the technical efforts would exceed the quality and creativity of the
+          outcome.
+        </article>
+        <img src="images/time_1.jpg" alt="" />
+      </div>
+      <article>
+        I came up with another idea that convinced me way more. I wanted to
+        create triangles for each second that would be generated and placed in a
+        random fashion. So the resulting image would never be the same.
+      </article>
+      <div class="grid_3x1">
+        <img src="images/time_2.jpg" alt="" />
+        <img src="images/time_3.jpg" alt="" />
+        <img src="images/time_4.jpg" alt="" />
+      </div>
+      <article>
+        This aproach brought along lot of questions and difficulties. Initially
+        I did not want any of the triangles to overlap eachother but I couldn't
+        quite figure out how to accomplish that. I tried around a bit with a P5
+        library that would detect if shapes overlap eachother. But even though I
+        managed triangles not overlapping eachother, it didn't yield the result
+        I was looking for.
+      </article>
+
+      <div class="grid_2x1">
+        <img src="images/time_5.jpg" alt="" />
+
+        <article>
+          Also I had to come up with an idea how to visually divide time into
+          segments of minutes, hours and days. What I came up with was a mix of
+          creative work with colors and a quite conventional layout of hours in
+          a circle.
+        </article>
+      </div>
+      <article>
+        After a long period of defining and concretizing my idea, the final
+        implementation was done quite quickly. I implemented two versions, one
+        that displays the current time and runs in realtime and one that is not
+        linked to the current time and runs much faster so the viewer has a
+        better understanding of what is happening.
+      </article>
+      <div class="grid_2x1">
+        <iframe
+          src="../sketches/day_3_time/timePassing_1/index.html"
+          frameborder="0"
+          ,
+          style="width: 100%; height: 20vw"
+        ></iframe>
+        <iframe
+          src="../sketches/day_3_time/timePassing_2/index.html"
+          frameborder="0"
+          ,
+          style="width: 100%; height: 20vw"
+        ></iframe>
+      </div>
+      <div class="grid_2x1">
+        <article>
+          This versions runs as fast as your computer can handle it,
+          <strong>up to 60 frames a second</strong>. Which (probably) is your
+          displays refreshrate. If you have a faster updating display, the
+          browser will allow more frames per second up to the monitors hz rate.
+        </article>
+        <article>
+          This version initially draws all triangles up to the current time. It
+          then updates once a second and adds a triangle, highlighted with a
+          small white border.
+        </article>
+      </div>
     </section>
 
     <script src="../script.js"></script>
