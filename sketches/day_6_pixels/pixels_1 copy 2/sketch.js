@@ -7,8 +7,12 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background(80);
-  sourceImg.resize(width, 0);
+  if (sourceImg.width >= sourceImg.height) {
+    sourceImg.resize(width, 0);
+  } else {
+    sourceImg.resize(0, height);
+  }
+  resizeCanvas(sourceImg.width, sourceImg.height);
   pixelDensity(1);
   background(80);
   image(sourceImg, 0, 0);

@@ -106,6 +106,39 @@
         target="_blank"
         >Show me!</a
       >
+      <pre class="prettyprint">
+        // this function is called for every pixel of the source image which should be replicated
+        // it returns the closest color of the source image accordings to the threshold value
+        function findClosestColor(r, g, b, a, sourceColors) {
+
+          // the cumulativeDiff represents the total difference of the sum of the RGBA values
+          // the smaller this value becomes, the closer is the found pixel in terms of color values
+          let closestCumulativeDiff = 1016;
+          let closestColor = color(255, 255, 255, 255);
+
+          // all remaining pixel colors are iterated to find a closer color value
+          for (let i = 0; i < sourceColors.length; i++) {
+            const c = sourceColors[i];
+            let diff =
+              Math.abs(r - red(c)) +
+              Math.abs(g - green(c)) +
+              Math.abs(b - blue(c)) +
+              Math.abs(a - alpha(c));
+              
+            if (diff < closestCumulativeDiff) {
+              closestCumulativeDiff = diff;
+              closestColor = c;
+            }
+
+            // the replicationThreshold determines how similar the pixels must be in order to be matched
+            // 0 means the pixels must be identical
+            if (closestCumulativeDiff <= replicationThreshold) {
+              return closestColor;
+            }
+          }
+          return closestColor;
+        }
+      </pre>
     </section>
 
     <script src="../script.js"></script>

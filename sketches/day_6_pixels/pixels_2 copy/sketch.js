@@ -2,12 +2,14 @@ let imgToReplicate;
 let imgSource;
 let imgReplicated;
 
-let sampledSize = 80;
+let sampledSize = 100;
 
-let replicationThreshold = 700;
+let replicationThreshold = 701;
+
+let thresholdDisplay;
 
 function preload() {
-  imgSource = loadImage("./images/landscape.jpg");
+  imgSource = loadImage("./images/dani.jpg");
   imgToReplicate = loadImage("./images/me.jpg");
 }
 
@@ -20,6 +22,10 @@ function setup() {
   btnStart.mousePressed(() => {
     loop();
   });
+  noStroke();
+  textSize(30);
+  fill(255, 0, 0, 255);
+  textAlign(CENTER);
 
   if (imgToReplicate.width >= imgToReplicate.height) {
     imgToReplicate.resize(sampledSize, 0);
@@ -32,8 +38,8 @@ function setup() {
 
 function draw() {
   if (replicationThreshold > 0) {
-    calculateReplicatedImage();
     replicationThreshold -= 1;
+    calculateReplicatedImage();
   }
 }
 
@@ -71,14 +77,22 @@ function calculateReplicatedImage() {
   } else {
     imgReplicated.resize(0, height);
   }
+  push();
   translate(width / 2 - imgReplicated.width / 2, 0);
   image(imgReplicated, 0, 0);
+  pop();
+  thresholdDisplay = text("Threshold: " + replicationThreshold, width / 2, 40);
 }
 
+// this function is called for every pixel of the source image which should be replicated
+// it returns the closest color of the source image accordings to the threshold value
 function findClosestColor(r, g, b, a, sourceColors) {
+  // the cumulativeDiff represents the total difference of the sum of the RGBA values
+  // the smaller this value becomes, the closer is the found pixel in terms of color values
   let closestCumulativeDiff = 1016;
   let closestColor = color(255, 255, 255, 255);
 
+  // all remaining pixel colors are iterated to find a closer color value
   for (let i = 0; i < sourceColors.length; i++) {
     const c = sourceColors[i];
     let diff =
@@ -86,15 +100,18 @@ function findClosestColor(r, g, b, a, sourceColors) {
       Math.abs(g - green(c)) +
       Math.abs(b - blue(c)) +
       Math.abs(a - alpha(c));
+
     if (diff < closestCumulativeDiff) {
       closestCumulativeDiff = diff;
       closestColor = c;
     }
+
+    // the replicationThreshold determines how similar the pixels must be in order to be matched
+    // 0 means the pixels must be identical
     if (closestCumulativeDiff <= replicationThreshold) {
       return closestColor;
     }
   }
-
   return closestColor;
 }
 
