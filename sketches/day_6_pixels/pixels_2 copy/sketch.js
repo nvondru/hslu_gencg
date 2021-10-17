@@ -9,8 +9,8 @@ let replicationThreshold = 701;
 let thresholdDisplay;
 
 function preload() {
-  imgSource = loadImage("./images/palette.jpg");
-  imgToReplicate = loadImage("./images/me.jpg");
+  imgSource = loadImage("./images/dani.jpg");
+  imgToReplicate = loadImage("./images/manu.jpg");
 }
 
 function setup() {
