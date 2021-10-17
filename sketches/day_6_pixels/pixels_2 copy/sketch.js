@@ -10,7 +10,7 @@ let thresholdDisplay;
 
 function preload() {
   imgSource = loadImage("./images/dani.jpg");
-  imgToReplicate = loadImage("./images/manu.jpg");
+  imgToReplicate = loadImage("./images/me.jpg");
 }
 
 function setup() {
