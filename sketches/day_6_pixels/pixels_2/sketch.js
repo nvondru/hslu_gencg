@@ -10,7 +10,7 @@ let replicationThreshold;
 let btnApplyThreshold;
 
 function preload() {
-  imgSource = loadImage("./images/landscape.jpg");
+  imgSource = loadImage("./images/palette.jpg");
   imgToReplicate = loadImage("./images/me.jpg");
 }
 
